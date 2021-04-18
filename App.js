@@ -1,21 +1,47 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Home from "./components/Search";
+import About from "./components/About";
+import {View,  StatusBar} from "react-native";
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
+const Tab = createBottomTabNavigator();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    return (
+        <View style={{flex:1}}>
+            <StatusBar hidden={true}/>
+            <NavigationContainer>
+                <Tab.Navigator
+                    screenOptions={({ route }) => ({
+                        tabBarIcon: ({ focused, color, size }) => {
+                            let iconName;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+                            if (route.name === 'Home') {
+                                iconName = focused
+                                    ? 'ios-information-circle'
+                                    : 'ios-information-circle-outline';
+                            } else if (route.name === 'About') {
+                                iconName = focused
+                                    ? 'ios-list'
+                                    : 'ios-list';
+                            }
+
+
+                            return <Ionicons name={iconName} size={size} color={color} />;
+                        },
+                    })}
+                    tabBarOptions={{
+                        activeTintColor: '#007371',
+                        inactiveTintColor: 'gray',
+                    }}
+
+                >
+                    <Tab.Screen name="Home" component={Home} options={{title: "Accueil"}} />
+                    <Tab.Screen name="About" component={About} options={{title: "A propos"}}/>
+                </Tab.Navigator>
+            </NavigationContainer>
+        </View>
+    );
+}
