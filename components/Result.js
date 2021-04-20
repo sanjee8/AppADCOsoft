@@ -22,8 +22,6 @@ export default class Result extends React.Component {
         const data = jsonValue != null ? JSON.parse(jsonValue) : null
 
         this.setState({name: data[this.props.route.params.index]})
-
-        console.log(this.state.name)
     }
 
     setTodo(text) {

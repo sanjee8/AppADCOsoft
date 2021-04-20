@@ -26,7 +26,9 @@ export default class About extends React.Component {
                     {`\n`}{`\n`}
 
                     Si vous souhaitez, vous pouvez accéder à ma page Github pour voir quelques autres de mes projets.
-                    (Vous y trouvez un projet web (php, html, css, sql, bootstrap, composer), un projet java
+
+                    {`\n`}{`\n`}
+                    Vous y trouvez un projet web (php, html, css, sql, bootstrap, composer), un projet java
                     ( jeu 2d mmorpg ) et un jeu en python ( jeu threes, se rapprochant du 2048 ).
                 </Text>
 
