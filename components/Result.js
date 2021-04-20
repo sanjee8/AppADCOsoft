@@ -30,11 +30,31 @@ export default class Result extends React.Component {
         this.setState({name: text})
     }
 
-    save() {
+    async save() {
 
+        const jsonValue = await AsyncStorage.getItem('notes')
+        const data = jsonValue != null ? JSON.parse(jsonValue) : null
 
+        data[this.props.route.params.index] = this.state.name
+
+        await AsyncStorage.setItem('notes', JSON.stringify(data))
+
+        this.props.navigation.navigate('Home', {reload: true})
 
     }
+
+    async delete() {
+
+        const jsonValue = await AsyncStorage.getItem('notes')
+        const data = jsonValue != null ? JSON.parse(jsonValue) : null
+
+        data.splice(this.props.route.params.index, 1)
+
+        await AsyncStorage.setItem('notes', JSON.stringify(data))
+
+        this.props.navigation.navigate('Home', {reload: true})
+    }
+
 
     render() {
         if(this.state.name === null) {
@@ -57,7 +77,12 @@ export default class Result extends React.Component {
                             style={styles.input}
                             value={this.state.name}
                         />
-                        <Button style={todo_page.edit_btn} title="Enregistrer" onPress={() => {this.props.navigation.navigate('Home')}}/>
+                        <Button title="Enregistrer" onPress={() => this.save()}/>
+                    </View>
+
+                    <View style={todo_page.delete}>
+                        <Text>Supprimer la tâche :</Text>
+                        <Button title="Supprimer" onPress={() => this.delete()}/>
                     </View>
                 </View>
 
@@ -81,6 +106,10 @@ const todo_page = StyleSheet.create({
         marginBottom: 30
     },
     edit: {
+        marginHorizontal: 5
+    },
+    delete: {
+        marginTop: 30,
         marginHorizontal: 5
     }
 })

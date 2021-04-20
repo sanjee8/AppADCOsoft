@@ -5,7 +5,20 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Todo from "./Todo";
 
 
-const Home = ( {navigation} ) => {
+const Home = ({navigation, route}) => {
+
+    if (typeof (route.params) !== 'undefined' && route.params != null) {
+        if (route.params.reload === true) {
+            refresh()
+        }
+    }
+
+     async function refresh() {
+         const jsonValue = await AsyncStorage.getItem('notes')
+         const data = jsonValue != null ? JSON.parse(jsonValue) : null
+         setTodoItems(data || [])
+     }
+
     const [todoItems, setTodoItems] = useState(async () => {
             const jsonValue = await AsyncStorage.getItem('notes')
             const data = jsonValue != null ? JSON.parse(jsonValue) : null
@@ -16,12 +29,12 @@ const Home = ( {navigation} ) => {
 
     async function submit() {
 
-        if(todo === null || todo === "") {
+        if (todo === null || todo === "") {
             alert("Vide !")
             return
         }
 
-        if(todoItems.includes(todo)) {
+        if (todoItems.includes(todo)) {
             alert("Existe déjà !")
             return
         }
@@ -33,16 +46,6 @@ const Home = ( {navigation} ) => {
 
 
     }
-
-    const findTodoList = async () => {
-
-        const result = await AsyncStorage.getItem('notes')
-        console.log(result)
-        if(result !== null) setTodo(JSON.parse(result))
-
-    }
-
-
 
     return (
         <View style={styles.view}>
@@ -68,7 +71,7 @@ const Home = ( {navigation} ) => {
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({item, index}) => {
                         return (
-                            <Todo name={item} index={index} navigation={navigation} />
+                            <Todo name={item} index={index} navigation={navigation}/>
                         )
                     }}
                 />
