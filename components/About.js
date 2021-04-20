@@ -2,12 +2,12 @@ import React from 'react'
 
 import {View, Text, Button, Linking} from 'react-native'
 import {styles} from "../styles/stylesheet";
-import Home from "./Search";
+import Search from "./Search";
 
 export default class About extends React.Component {
 
     accueil() {
-        this.props.navigation.navigate("Home")
+        this.props.navigation.navigate("Search")
     }
 
     render() {
