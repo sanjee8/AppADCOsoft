@@ -1,15 +1,20 @@
 import React from 'react'
 import {TouchableOpacity, Text, StyleSheet} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Result from "./Result";
+
+
 
 export default class Todo extends React.Component {
 
 
+    details() {
+        this.props.navigation.navigate('Result', {index: this.props.index})
+    }
 
     render() {
-        console.log(this.props.index)
         return (
-            <TouchableOpacity onPress={() => alert("test")} style={todo.view}>
+            <TouchableOpacity onPress={() => this.details()} style={todo.view}>
                 <Text style={todo.name}>{this.props.name}</Text>
                 <Text><Ionicons name="chevron-forward-outline" size={24}/></Text>
             </TouchableOpacity>

@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import Search from "./components/Search";
 import About from "./components/About";
+import Todolist from "./components/Todolist";
 import {View,  StatusBar} from "react-native";
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -18,7 +18,7 @@ export default function App() {
                         tabBarIcon: ({ focused, color, size }) => {
                             let iconName;
 
-                            if (route.name === 'Search') {
+                            if (route.name === 'Todolist') {
                                 iconName = focused
                                     ? 'ios-information-circle'
                                     : 'ios-information-circle-outline';
@@ -38,7 +38,7 @@ export default function App() {
                     }}
 
                 >
-                    <Tab.Screen name="Search" component={Search} options={{title: "Accueil"}} />
+                    <Tab.Screen name="Todolist" component={Todolist} options={{title: "Accueil"}} />
                     <Tab.Screen name="About" component={About} options={{title: "A propos"}}/>
                 </Tab.Navigator>
             </NavigationContainer>

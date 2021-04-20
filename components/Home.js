@@ -5,7 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Todo from "./Todo";
 
 
-const Test = () => {
+const Home = ( {navigation} ) => {
     const [todoItems, setTodoItems] = useState(async () => {
             const jsonValue = await AsyncStorage.getItem('notes')
             const data = jsonValue != null ? JSON.parse(jsonValue) : null
@@ -42,6 +42,8 @@ const Test = () => {
 
     }
 
+
+
     return (
         <View style={styles.view}>
             <Text style={styles.title}>Ajouter une nouvelle tâche</Text>
@@ -58,7 +60,6 @@ const Test = () => {
                 <Button onPress={() => submit()} title="Ajouter"/>
             </SafeAreaView>
 
-
             <SafeAreaView style={{marginTop: 20}}>
                 <Text style={styles.title}>Todo-List</Text>
                 <FlatList
@@ -67,7 +68,7 @@ const Test = () => {
                     keyExtractor={(item, index) => index.toString()}
                     renderItem={({item, index}) => {
                         return (
-                            <Todo name={item} index={index} />
+                            <Todo name={item} index={index} navigation={navigation} />
                         )
                     }}
                 />
@@ -76,4 +77,4 @@ const Test = () => {
     );
 };
 
-export default Test;
+export default Home;
