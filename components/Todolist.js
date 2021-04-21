@@ -1,5 +1,4 @@
 import React from 'react'
-import {View, Button, Text} from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from "./Home";
 import Result from "./Result";
